@@ -2,9 +2,12 @@
 if (isset($_SESSION['sv_login'])) {
     $sv=$_SESSION['sv_login'];
     $masv=$sv['MaSV'];
+    // check xem đã trả phòng cũ chưa
     $sql2="select * from chitietdangky where MaSV=$masv and NgayTraPhong is null";
     $rs2=mysqli_query($conn,$sql2);
     $row2=mysqli_fetch_array($rs2);
+    //check xem đã thanh toán hết tiền điện nước chưa để trả phòng
+    
 //?>
     <div class="cart">
       <div class="col-sm-12  mx-auto">
@@ -33,7 +36,19 @@ if (isset($_SESSION['sv_login'])) {
                  <label> <span style="color: red;font-size: 25px;">*</span>Lưu ý : Bạn sẽ không được nhận lại tiền dư khi trả phòng trước thời hạn. Nhân viên ký túc xá sẽ kiểm tra lại tài sản trước khi cho bạn trả phòng. Hệ thống sẽ gửi thông báo sau !</label>
               </div>
         <hr>
+        <?php
+        $sql123="SELECT * FROM `hoadondiennuoc` WHERE TinhTrang = 'chưa thu'";
+    $rs123=mysqli_query($conn,$sql123);
+    if ( !$row123=mysqli_fetch_array($rs123)) {
+      ?>
               <button type="submit" name="trap" class="btn btn-lg btn-primary btn-block text-uppercase ">Trả Phòng</button>
+
+              <?php   }
+              
+              else{
+                echo "Trước khi trả phòng bạn phải thanh toán hết tiền điện và tiền nước!! Vui lòng thanh toán và thực hiện lại";
+              }?>
+
            </form></div>
          </div>
        </div>

@@ -8,21 +8,47 @@
                         </span>
 		  <hr>
            <form class="col-md-12 m-auto" action="index.php?action=quanlydiennuoc&view=them&map=<?php echo $map ?>" method="POST">
+
+
+           <!-- Tiền điện -->
               <div class="form-row">
               <div class="form-group col-sm-3">
                     <label for="phong">Tháng</label>
-                    <input type="text" class="form-control"  name="thang">
+                    <input type="text" class="form-control"  name="thang" required>
                    
                  </div>
                  <div class="form-group col-sm-3">
-                    <label for="myEmail">Tiền Điện</label>
-                    <input type="text" class="form-control" name="td">
+                    <label for="myEmail">Số điện tháng trước</label>
+                    <input type="text" class="form-control" name="sdtt" required>
                    
                  </div>
                  <div class="form-group col-sm-3">
-                    <label for="myPassword">Tiền Nước</label>
-                    <input type="text" class="form-control" name="tn">
+                    <label for="myPassword">Số điện tháng sau</label>
+                    <input type="text" class="form-control" name="sdts" required>
                  </div>
+
+                 
+               
+              </div><hr>
+
+              <!-- Tiền nước -->
+              <div class="form-row">
+              <div class="form-group col-sm-3">
+                    <label for="phong">Tháng</label>
+                    <input type="text" class="form-control"  name="thang" required>
+                   
+                 </div>
+                 <div class="form-group col-sm-3">
+                    <label for="myEmail">Số nước tháng trước</label>
+                    <input type="text" class="form-control" name="sntt" required>
+                   
+                 </div>
+                 <div class="form-group col-sm-3">
+                    <label for="myPassword">Số nước tháng sau</label>
+                    <input type="text" class="form-control" name="snts" required>
+                 </div>
+
+                 
                
               </div><hr>
    
@@ -63,10 +89,28 @@ echo $a;?>
         </table>
 <?php
 	if(isset($_POST['themdn'])){
+    $sodien = 3000;
+    $sonuoc = 20000;
+
+    // xử lí tiền điện
+    $sdtt=$_POST['sdtt'];
+    $sdts=$_POST['sdts'];
+    $sdtn = $sdts - $sdtt;
+    $tongtiendien = $sdtn * $sodien;
+
+    // xử lí tiền nước
+    $sntt=$_POST['sntt'];
+    $snts=$_POST['snts'];
+    $sntn = $snts - $sntt;
+    $tongtiennuoc = $sntn * $sonuoc;
+
+
+
+
 		$td=$_POST['td'];
 		$tn=$_POST['tn'];
 		$thang=$_POST['thang'];
-		$sql="INSERT INTO `hoadondiennuoc` (`MaHD`, `MaPhong`, `TienDien`, `TienNuoc`, `Thang`) VALUES (NULL, '$map','$td', '$tn', '$thang')";
+		$sql="INSERT INTO `hoadondiennuoc` (`MaHD`, `MaPhong`, `TienDien`, `TienNuoc`, `Thang`) VALUES (NULL, '$map','$tongtiendien', '$tongtiennuoc', '$thang')";
 		$rs=mysqli_query($conn,$sql);
 		if($rs){
 			$link="index.php?action=quanlydiennuoc&view=them&tb=1&map=".$map;

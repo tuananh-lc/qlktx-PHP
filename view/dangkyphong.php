@@ -61,6 +61,8 @@ if (isset($_SESSION['sv_login'])) {
                     </tr>
                   </tbody>
                 </table>
+                <a href="https://docs.google.com/document/d/1W-DE7Chrdgjh6qievzCmkh0SCDwE-9XY/edit?usp=share_link&ouid=100400026715111061583&rtpof=true&sd=true" >Điều khoản và điều kiện</a>
+                <br><input type="Checkbox" required>Tôi đồng ý với điều khoản và điều kiện
               </div><hr>
               <button type="sub" name="dangkyphong" class="btn btn-lg btn-primary btn-block text-uppercase ">Đăng ký phòng</button>
            </form></div>
